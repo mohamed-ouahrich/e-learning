@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>E-Learning Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+
+  <style>
+    body {
+      background-color: #f4f7f6;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .navbar {
+      background-color: #ccebbc;
+      border: 1px solid #ccebbc;
+    }
+
+    .navbar-toggler-icon {
+      background-color: #2c3e50;
+    }
+
+    .navbar-brand, .nav-link {
+      color: #2c3e50;
+      font-weight: bold;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #1466b0 !important;
+    }
+
+    .container {
+      padding-top: 30px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background-color: #18bc9c;
+      border-color: #16a085;
+    }
+
+    .btn-primary:hover {
+      background-color: #16a085;
+      border-color: #149c82;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/index}">Sign up/ Login</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/topics}">Explore</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/learning}">My Learning</a>
+        </li>
+        <li class="nav-item">
+          <form class="d-flex" th:action="@{/search}" method="get">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Search Results</h1>
+
+  <div th:if="${topics}">
+    <ul>
+      <li th:each="topic : ${topics}">
+        <h3 th:text="${topic.name}"></h3>
+        <p th:text="${topic.description}"></p>
+        <a th:href="@{/topics/{id}(id=${topic.id})}" class="btn btn-primary">View Details</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div th:if="${relatedVideos}">
+  <h2>Videos</h2>
+  <ul>
+    <li th:each="video : ${relatedVideos}">
+      <p th:text="${video.videoTitle}"></p>
+      <img th:src="${video.thumbnail}" alt="Video Thumbnail" />
+      <a th:href="${video.videoURL}" target="_blank" th:text="${video.videoTitle}"></a>
+
+      <!-- Add more video details if needed -->
+      <!-- Add more video details if needed -->
+    </li>
+  </ul>
+</div>
+
+<div th:if="${relatedCourses}">
+  <h2>Courses</h2>
+  <ul>
+    <li th:each="course : ${relatedCourses}">
+      <p th:text="${course.courseName}"></p>
+      <a th:href="${course.courseURL}" target="_blank" th:text="${course.courseName}"></a>
+      <!-- Add more course details if needed -->
+    </li>
+  </ul>
+</div>
+
+<div th:if="${relatedDocumentation}">
+  <h2>Documentation</h2>
+  <ul>
+    <li th:each="documentation : ${relatedDocumentation}">
+      <p th:text="${documentation.title}"></p>
+      <a th:href="${documentation.url}" target="_blank" th:text="${documentation.title}"></a>
+      <!-- Add more course details if needed -->
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>
