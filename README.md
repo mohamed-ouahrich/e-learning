@@ -5,6 +5,7 @@ machine learning algorithm
 
 Languages and version:
   - Spring boot : 3.1.2
+  - Spring MVC
   - Spring Security
   - Thymeleaf
   - HTML
